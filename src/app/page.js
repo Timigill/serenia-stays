@@ -4,6 +4,7 @@ import HeroSection from '../components/home/HeroSection';
 import AboutSection from "../components/home/AboutSection";
 import ServicesSection from "../components/home/ServicesSection";
 import GallerySection from "../components/home/GallerySection";
+import FoodSection from "../components/home/FoodSection";
 
 
 export default function Page() {
@@ -13,7 +14,7 @@ export default function Page() {
       <AboutSection />
       <ServicesSection />
       <GallerySection />
-
+      <FoodSection />
     </>
   );
 }
