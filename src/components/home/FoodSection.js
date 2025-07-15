@@ -15,7 +15,32 @@ export default function FoodSection() {
         padding: "160px 80px 100px",
       }}
     >
-      
+      <style jsx>{`
+        /* Responsive tweaks */
+        @media (max-width: 992px) {
+          section {
+            padding: 100px 40px 80px;
+          }
+          h2 {
+            font-size: 36px !important;
+          }
+        }
+        @media (max-width: 768px) {
+          section {
+            padding: 80px 20px 60px;
+          }
+          h2 {
+            font-size: 28px !important;
+          }
+          .food-images {
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+          .food-images div {
+            margin-top: 20px !important;
+          }
+        }
+      `}</style>
 
       <div className="container">
         <div className="row justify-content-center align-items-center">
