@@ -10,26 +10,10 @@ const raleway = Raleway({
 
 export default function RoomsSection() {
   const rooms = [
-    {
-      title: "Superior Room",
-      price: "From $250/night",
-      img: "/room1.jpg",
-    },
-    {
-      title: "Deluxe Room",
-      price: "From $250/night",
-      img: "/room2.jpeg",
-    },
-    {
-      title: "Signature Room",
-      price: "From $250/night",
-      img: "/room3.jpg",
-    },
-    {
-      title: "Couple Room",
-      price: "From $250/night",
-      img: "/room4.jpg",
-    },
+    { title: "Superior Room", price: "From $250/night", img: "/room1.jpg" },
+    { title: "Deluxe Room", price: "From $250/night", img: "/room2.jpeg" },
+    { title: "Signature Room", price: "From $250/night", img: "/room3.jpg" },
+    { title: "Couple Room", price: "From $250/night", img: "/room4.jpg" },
   ];
 
   return (
@@ -63,20 +47,39 @@ export default function RoomsSection() {
         Choose a Better Room
       </h2>
 
-      {/* GRID SECTION WITH 4 ROOM CARDS */}
+      {/* GRID SECTION */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          gridTemplateColumns: "1fr 1fr", 
           gridTemplateRows: "auto auto",
           gap: "0",
           width: "100%",
         }}
+        className="rooms-grid"
       >
         {rooms.map((room, index) => (
           <RoomCard key={index} {...room} />
         ))}
       </div>
+
+      {/* RESPONSIVE STYLE OVERRIDE */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .rooms-grid {
+            grid-template-columns: 1fr; /* ✅ single column on tablet & mobile */
+          }
+        }
+
+        @media (max-width: 480px) {
+          section h2 {
+            font-size: 32px; /* ✅ smaller heading on mobile */
+          }
+          section p {
+            font-size: 16px;
+          }
+        }
+      `}</style>
     </section>
   );
 }
@@ -95,6 +98,7 @@ function RoomCard({ title, price, img }) {
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      className="room-card"
     >
       {/* BACKGROUND IMAGE */}
       <Image
@@ -125,11 +129,11 @@ function RoomCard({ title, price, img }) {
           position: "absolute",
           bottom: "25px",
           left: "25px",
-          right: "25px", 
+          right: "25px",
           color: "#fff",
           zIndex: 2,
           display: "flex",
-          justifyContent: "space-between", 
+          justifyContent: "space-between",
           alignItems: "center",
         }}
       >
@@ -147,7 +151,7 @@ function RoomCard({ title, price, img }) {
             fontSize: "20px",
             color: "#fff",
             borderBottom: "2px solid #fff",
-            transform: hovered ? "translateX(0)" : "translateX(80%)", // closer to left
+            transform: hovered ? "translateX(0)" : "translateX(80%)",
             opacity: hovered ? 1 : 0,
             transition:
               "transform 0.4s ease, opacity 0.4s ease, color 0.3s ease, border-color 0.3s ease",
@@ -166,6 +170,21 @@ function RoomCard({ title, price, img }) {
           Book Now
         </span>
       </div>
+
+      {/* RESPONSIVE STYLE OVERRIDE */}
+      <style jsx>{`
+        @media (max-width: 480px) {
+          .room-card {
+            height: 250px; /* ✅ smaller height for mobile */
+          }
+          .room-card h3 {
+            font-size: 22px; /* ✅ smaller title */
+          }
+          .room-card p {
+            font-size: 16px;
+          }
+        }
+      `}</style>
     </div>
   );
 }
