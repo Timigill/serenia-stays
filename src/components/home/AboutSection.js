@@ -13,7 +13,6 @@ export default function AboutSection() {
       className={raleway.className}
       style={{
         paddingTop: "160px",
-        paddingBottom: "160px",
         paddingLeft: "80px",
         paddingRight: "80px",
       }}
@@ -33,7 +32,6 @@ export default function AboutSection() {
               className="mb-3"
               style={{
                 color: "#00A2E8", 
-                letterSpacing: "1px",
                 fontSize: "16px", 
                 fontWeight: 400, 
               }}
