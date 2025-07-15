@@ -13,6 +13,7 @@ export default function FoodSection() {
       className={raleway.className}
       style={{
         paddingTop: "160px",
+        paddingBottom: "100px",
         paddingLeft: "80px",
         paddingRight: "80px",
       }}
@@ -26,7 +27,7 @@ export default function FoodSection() {
           >
             <div style={{ marginTop: "0px" }}>
               <Image
-                src="/food1.jpeg" // ✅ Replace with your food image
+                src="/food1.jpeg" 
                 alt="Delicious Food"
                 width={300}
                 height={450}
@@ -36,7 +37,7 @@ export default function FoodSection() {
             </div>
             <div style={{ marginTop: "70px" }}>
               <Image
-                src="/food2.jpg" // ✅ Replace with your food image
+                src="/food2.jpg" 
                 alt="Fresh Cuisine"
                 width={300}
                 height={450}
@@ -58,7 +59,7 @@ export default function FoodSection() {
             <p
               className="mb-3"
               style={{
-                color: "#00A2E8", // keep same accent color as About
+                color: "#00A2E8", 
                 fontSize: "16px",
                 fontWeight: 400,
               }}
