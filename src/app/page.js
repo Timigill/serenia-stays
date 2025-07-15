@@ -5,7 +5,7 @@ import AboutSection from "../components/home/AboutSection";
 import ServicesSection from "../components/home/ServicesSection";
 import GallerySection from "../components/home/GallerySection";
 import FoodSection from "../components/home/FoodSection";
-
+import RoomsSection from "../components/home/RoomsSection";
 
 export default function Page() {
   return (
@@ -15,6 +15,7 @@ export default function Page() {
       <ServicesSection />
       <GallerySection />
       <FoodSection />
+      <RoomsSection />
     </>
   );
 }
