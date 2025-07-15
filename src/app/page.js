@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import HeroSection from '../components/home/HeroSection';
 import AboutSection from "../components/home/AboutSection";
 import ServicesSection from "../components/home/ServicesSection";
+import GallerySection from "../components/home/GallerySection";
 
 
 export default function Page() {
@@ -11,6 +12,8 @@ export default function Page() {
       <HeroSection />
       <AboutSection />
       <ServicesSection />
+      <GallerySection />
+
     </>
   );
 }
