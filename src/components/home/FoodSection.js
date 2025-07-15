@@ -12,22 +12,21 @@ export default function FoodSection() {
     <section
       className={raleway.className}
       style={{
-        paddingTop: "160px",
-        paddingBottom: "100px",
-        paddingLeft: "80px",
-        paddingRight: "80px",
+        padding: "160px 80px 100px",
       }}
     >
+      
+
       <div className="container">
         <div className="row justify-content-center align-items-center">
           {/* LEFT COLUMN – IMAGES */}
           <div
-            className="col-lg-6 d-flex justify-content-center"
+            className="col-lg-6 d-flex justify-content-center food-images"
             style={{ gap: "5px" }}
           >
             <div style={{ marginTop: "0px" }}>
               <Image
-                src="/food1.jpeg" 
+                src="/food1.jpeg"
                 alt="Delicious Food"
                 width={300}
                 height={450}
@@ -37,7 +36,7 @@ export default function FoodSection() {
             </div>
             <div style={{ marginTop: "70px" }}>
               <Image
-                src="/food2.jpg" 
+                src="/food2.jpg"
                 alt="Fresh Cuisine"
                 width={300}
                 height={450}
@@ -54,12 +53,13 @@ export default function FoodSection() {
               maxWidth: "500px",
               marginLeft: "auto",
               marginRight: "auto",
+              textAlign: "left",
             }}
           >
             <p
               className="mb-3"
               style={{
-                color: "#00A2E8", 
+                color: "#00A2E8",
                 fontSize: "16px",
                 fontWeight: 400,
               }}
