@@ -18,32 +18,32 @@ export default function GallerySection() {
         className={raleway.className}
         style={{
           position: "relative",
-          height: "600px",
+          height: "750px", // ✅ adaptive height for all screens
           display: "flex",
-          alignItems: "flex-end", // pushes text lower
+          alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
           color: "#fff",
-          paddingBottom: "100px",
           overflow: "hidden",
         }}
       >
-        {/* Background Image */}
+        {/* ✅ Background Image */}
         <Image
           src="/gallery-bg.jpg"
           alt="Gallery Background"
           fill
           style={{
             objectFit: "cover",
+            objectPosition: "center bottom",
             filter: "brightness(0.5)",
           }}
         />
 
-        {/* Overlay Content */}
-        <div style={{ position: "relative", zIndex: 2 }}>
+        {/* ✅ Overlay Content */}
+        <div style={{ position: "relative", zIndex: 2, padding: "0 20px" }}>
           <p
             style={{
-              fontSize: "18px",
+              fontSize: "clamp(14px, 2vw, 18px)", // responsive font size
               fontWeight: 300,
               marginBottom: "10px",
             }}
@@ -52,17 +52,17 @@ export default function GallerySection() {
           </p>
           <h2
             style={{
-              fontSize: "42px",
+              fontSize: "clamp(24px, 5vw, 42px)", // ✅ auto scales between mobile & desktop
               fontWeight: 400,
               lineHeight: "1.2",
-              marginBottom: "40px",
+              marginBottom: "30px",
             }}
           >
             Relax and Enjoy your <br />
             Vacation
           </h2>
 
-          {/* Play Icon */}
+          {/* ✅ Play Icon */}
           <span
             onClick={() => setShowVideo(true)}
             style={{
@@ -73,7 +73,7 @@ export default function GallerySection() {
           >
             <FaPlayCircle
               style={{
-                fontSize: "70px",
+                fontSize: "clamp(36px, 8vw, 50px)", // ✅ smaller on mobile, larger on desktop
                 color: "#fff",
                 transition: "transform 0.3s ease, filter 0.3s ease",
               }}
@@ -91,7 +91,7 @@ export default function GallerySection() {
         </div>
       </section>
 
-      {/* VIDEO POPUP */}
+      {/* ✅ VIDEO POPUP */}
       {showVideo && (
         <div
           style={{
@@ -106,6 +106,7 @@ export default function GallerySection() {
             justifyContent: "center",
             zIndex: 9999,
             animation: "fadeIn 0.3s ease",
+            padding: "10px",
           }}
         >
           {/* Close Button */}
@@ -113,10 +114,10 @@ export default function GallerySection() {
             onClick={() => setShowVideo(false)}
             style={{
               position: "absolute",
-              top: "25px",
-              right: "35px",
-              width: "30px",
-              height: "30px",
+              top: "20px",
+              right: "20px",
+              width: "35px",
+              height: "35px",
               background: "red",
               borderRadius: "50%",
               display: "flex",
@@ -133,17 +134,19 @@ export default function GallerySection() {
               (e.currentTarget.style.transform = "scale(1)")
             }
           >
-            <FaTimes style={{ color: "#fff", fontSize: "14px" }} />
+            <FaTimes style={{ color: "#fff", fontSize: "16px" }} />
           </div>
 
           {/* Embedded YouTube Video */}
           <div
             style={{
               position: "relative",
-              width: "80%",
+              width: "90%",
               maxWidth: "900px",
               aspectRatio: "16/9",
               background: "#000",
+              borderRadius: "10px",
+              overflow: "hidden",
             }}
           >
             <iframe
