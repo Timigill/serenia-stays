@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from '../components/Navbar';
 import BootstrapClient from '../components/BootstrapClient';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,8 +28,10 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
           {children}
+          <Footer/>
         </body>
       </html>
+      
     </>
   );
 }
