@@ -1,21 +1,19 @@
-/* .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5rem 3rem;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+.navbar {
+  background-color: transparent;
 }
 
-.logo span {
-  font-size: 1.7rem;
-  font-weight: bold;
-  color: #2d3a4b;
-  letter-spacing: 2px;
+.hamburger {
+ /* display: block;
   cursor: pointer;
+  padding: 2.5rem;
+  margin-right: 2.5rem;*/
+}
+
+
+@media (min-width: 992px) {
+  .hamburger {
+   /* display: none; */
+  }
 }
 
 .navLinks {
@@ -24,34 +22,74 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
-.navLinks li a {
+.nav-link {
   text-decoration: none;
-  color: #2d3a4b;
   font-size: 1.1rem;
   font-weight: 500;
-  transition: color 0.2s;
+  color: white;
+  transition: color 0.3s ease;
 }
 
-.navLinks li a:hover {
-  color: #3eb489;
+.nav-link:hover {
+  color: #00bfa6;
 }
 
-.bookButton button {
+.logoCenter {
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.navRight {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.navRight a {
+  color: white;
+  font-size: 1.1rem;
+}
+
+.navRight a:hover {
+  color: #00bfa6;
+}
+
+.navRight button {
   background: #3eb489;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 25px;
   padding: 0.7rem 1.7rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(62,180,137,0.08);
 }
 
-.bookButton button:hover {
+.navRight button:hover {
   background: #2d3a4b;
   color: #fff;
-}  */
+}
+/* Style mobile menu list */
+.mobileMenu {
+  background-color: white; /* keep the white bg */
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+/* Reset default link styles  */
+.mobileMenu a {
+  color: black;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  display: block;
+  padding: 0.5rem 0;
+} 
+
+/* Remove hover blue */
+.mobileMenu a:hover {
+  color: #3eb489; /* optional subtle green on hover */
+}
