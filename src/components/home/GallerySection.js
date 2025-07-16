@@ -18,7 +18,7 @@ export default function GallerySection() {
         className={raleway.className}
         style={{
           position: "relative",
-          height: "750px", // ✅ adaptive height for all screens
+          height: "750px", 
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -52,7 +52,7 @@ export default function GallerySection() {
           </p>
           <h2
             style={{
-              fontSize: "clamp(24px, 5vw, 42px)", // ✅ auto scales between mobile & desktop
+              fontSize: "clamp(24px, 5vw, 42px)", 
               fontWeight: 400,
               lineHeight: "1.2",
               marginBottom: "30px",
@@ -73,7 +73,7 @@ export default function GallerySection() {
           >
             <FaPlayCircle
               style={{
-                fontSize: "clamp(36px, 8vw, 50px)", // ✅ smaller on mobile, larger on desktop
+                fontSize: "clamp(36px, 8vw, 50px)", 
                 color: "#fff",
                 transition: "transform 0.3s ease, filter 0.3s ease",
               }}
