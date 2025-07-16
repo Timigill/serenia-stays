@@ -3,16 +3,16 @@
 }
 
 .hamburger {
-  display: block;
+ /* display: block;
   cursor: pointer;
-  padding: 0.5rem;
-  margin-right: 0.5rem;
+  padding: 2.5rem;
+  margin-right: 2.5rem;*/
 }
 
 
 @media (min-width: 992px) {
   .hamburger {
-    display: none;
+   /* display: none; */
   }
 }
 
