@@ -35,6 +35,9 @@ export default function Navbar() {
           <li className="nav-item">
             <Link className="nav-link text-white" href="/contact">Contact</Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white" href="/faq">FAQs</Link>
+          </li>
         </ul>
         <div className="mx-auto text-center">
           <img src="/logo.png" alt="Serenia Stays Logo" style={{height: 70, marginBottom: 0, opacity:2}} />
