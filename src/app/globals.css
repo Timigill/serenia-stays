@@ -36,7 +36,10 @@ a {
   text-decoration: none;
 }
 
-
+.tag-hover:hover {
+  background-color: #009DFF;
+  color: white;
+}
 
 
 @media (prefers-color-scheme: dark) {
