@@ -55,11 +55,12 @@ const BlogPage = () => {
   return (
     <section>
       {/* Hero Section */}
+      <div style={{minHeight:"100vh"}}>
       <div
         className="d-flex flex-column justify-content-center align-items-center text-center"
         style={{
           minHeight: "80vh",
-          backgroundImage: "url(/contactbg.png)",
+          backgroundImage: "url(/bg-blog.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -71,9 +72,9 @@ const BlogPage = () => {
           <h1 className="display-4 display-md-1 mb-3">Blogs</h1>
         </div>
       </div>
-
+</div>
       {/* Blog List */}
-      <div className="container py-5 my-5">
+      <div className="container ">
         <div className="row gy-4">
           <div className="col-lg-8">
             {loading ? (
@@ -96,9 +97,9 @@ const BlogPage = () => {
                       }}
                     />
                     <div
-                      className="position-absolute bg-primary text-white text-center px-2 py-3"
+                      className="position-absolute rounded-1 bg-primary text-white text-center px-3 py-3"
                       style={{
-                        width: "80px",
+                        width: "90px",
                         left: "30px",
                         bottom: "-10px",
                       }}
@@ -153,7 +154,7 @@ const BlogPage = () => {
         </div>
       </div>
 
-      {/* Global Button Focus Fix */}
+  
       <style jsx global>{`
         .page-link:focus {
           outline: none !important;

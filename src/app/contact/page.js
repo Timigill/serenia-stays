@@ -40,7 +40,7 @@ const Contact = () => {
     }
 
     if (!validateEmail(email)) {
-      toast.error("Please enter a valid email address.");
+      toast.error("Please enter a valid email address (e.g. example@domain.com).");
       return;
     }
 
@@ -50,12 +50,7 @@ const Contact = () => {
       const response = await axios.post("/api/contact", formData);
       if (response.data.success) {
         toast.success("Message sent successfully!");
-        setFormData({
-          message: "",
-          name: "",
-          email: "",
-          subject: "",
-        });
+        setFormData({ message: "", name: "", email: "", subject: "" });
       } else {
         toast.error(response.data.message || "Something went wrong.");
       }
@@ -149,7 +144,7 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    type="email"
+                    type="text"
                     className="form-control rounded-0 px-4 py-3"
                     placeholder="Email"
                     style={{
@@ -199,21 +194,21 @@ const Contact = () => {
           {/* Contact Info */}
           <div className="col-md-3 pt-5">
             <div className="mb-4 d-flex">
-              <i className="bi bi-house-door fs-2 me-3 text-secondary"></i>
+              <i className="bi bi-house-door fs-3 me-3 text-secondary"></i>
               <div>
                 <p className="mb-0 fw-bold">Address</p>
                 <p className="mb-0 text-secondary">123 Main Street, City, Country</p>
               </div>
             </div>
             <div className="mb-4 d-flex">
-              <i className="bi bi-telephone fs-2 me-3 text-secondary"></i>
+              <i className="bi bi-telephone fs-3 me-3 text-secondary"></i>
               <div>
                 <p className="mb-0 fw-bold">Phone</p>
                 <p className="mb-0 text-secondary">+1 234 567 890</p>
               </div>
             </div>
             <div className="d-flex">
-              <i className="bi bi-envelope fs-2 me-3 text-secondary"></i>
+              <i className="bi bi-envelope fs-3 me-3 text-secondary"></i>
               <div>
                 <p className="fw-bold mb-0">Email</p>
                 <p className="mb-0 text-secondary">info@example.com</p>
