@@ -15,7 +15,7 @@ const Contact = () => {
     subject: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -24,11 +24,23 @@ const Contact = () => {
     }));
   };
 
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+    const { name, email, subject, message } = formData;
+
+    if (!name || !email || !subject || !message) {
       toast.error("Please fill in all fields.");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      toast.error("Please enter a valid email address.");
       return;
     }
 
@@ -43,14 +55,14 @@ const Contact = () => {
           name: "",
           email: "",
           subject: "",
-        }); 
+        });
       } else {
         toast.error(response.data.message || "Something went wrong.");
       }
     } catch (error) {
       toast.error("Server error. Please try later.");
     } finally {
-      setIsSubmitting(false); 
+      setIsSubmitting(false);
     }
   };
 
@@ -74,15 +86,15 @@ const Contact = () => {
           className="position-absolute top-0 start-0 w-100 h-100"
           style={{ background: "rgba(44,62,80,0.35)", zIndex: 1 }}
         ></div>
-        <div className="position-relative" style={{ zIndex: 2 }}>
-          <h1 className="display-1 text-white mb-4" style={{ letterSpacing: "2px" }}>
+        <div className="position-relative z-2 text-white">
+          <h1 className="display-5 mb-4" style={{ letterSpacing: "2px" }}>
             Get in Touch
           </h1>
         </div>
       </div>
 
-      {/* Map */}
-      <div className="d-flex justify-content-center align-items-center py-5 px-3">
+      {/* Google Map */}
+      <div className="d-flex justify-content-center align-items-center py-5 px-3 my-4">
         <div className="w-100" style={{ maxWidth: "1000px", height: "70vh" }}>
           <iframe
             title="Google Map"
@@ -97,6 +109,7 @@ const Contact = () => {
       {/* Contact Form */}
       <div className="container py-5">
         <div className="row">
+          {/* Left Form */}
           <div className="col-md-9 mb-4">
             <h2 className="mb-4 fs-4">Get in Touch</h2>
             <form onSubmit={handleSubmit}>
@@ -105,10 +118,14 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  className="form-control px-4 py-3 rounded-0"
+                  className="form-control rounded-0 px-4 py-3"
                   rows="6"
                   placeholder="Message"
-                  style={{ fontSize: "0.9rem", border: "1px solid #d3d3d3" }}
+                  style={{
+                    fontSize: "0.9rem",
+                    border: "1px solid #ccc",
+                    boxShadow: "none",
+                  }}
                 />
               </div>
               <div className="row">
@@ -120,7 +137,11 @@ const Contact = () => {
                     type="text"
                     className="form-control rounded-0 px-4 py-3"
                     placeholder="Enter Your Name"
-                    style={{ fontSize: "0.9rem", border: "1px solid #d3d3d3" }}
+                    style={{
+                      fontSize: "0.9rem",
+                      border: "1px solid #ccc",
+                      boxShadow: "none",
+                    }}
                   />
                 </div>
                 <div className="col-md-6 mb-4">
@@ -131,7 +152,11 @@ const Contact = () => {
                     type="email"
                     className="form-control rounded-0 px-4 py-3"
                     placeholder="Email"
-                    style={{ fontSize: "0.9rem", border: "1px solid #d3d3d3" }}
+                    style={{
+                      fontSize: "0.9rem",
+                      border: "1px solid #ccc",
+                      boxShadow: "none",
+                    }}
                   />
                 </div>
               </div>
@@ -143,7 +168,11 @@ const Contact = () => {
                   type="text"
                   className="form-control rounded-0 px-4 py-3"
                   placeholder="Subject"
-                  style={{ fontSize: "0.9rem", border: "1px solid #d3d3d3" }}
+                  style={{
+                    fontSize: "0.9rem",
+                    border: "1px solid #ccc",
+                    boxShadow: "none",
+                  }}
                 />
               </div>
               <button
@@ -153,7 +182,11 @@ const Contact = () => {
               >
                 {isSubmitting ? (
                   <>
-                    <span className="spinner-border spinner-border-sm me-2 " role="status" aria-hidden="true"></span>
+                    <span
+                      className="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
                     Sending...
                   </>
                 ) : (
@@ -166,21 +199,21 @@ const Contact = () => {
           {/* Contact Info */}
           <div className="col-md-3 pt-5">
             <div className="mb-4 d-flex">
-              <i className="bi bi-house fs-2 me-3 text-secondary"></i>
+              <i className="bi bi-house-door fs-2 me-3 text-secondary"></i>
               <div>
                 <p className="mb-0 fw-bold">Address</p>
                 <p className="mb-0 text-secondary">123 Main Street, City, Country</p>
               </div>
             </div>
             <div className="mb-4 d-flex">
-              <i className="bi bi-telephone-fill fs-2 me-3 text-secondary"></i>
+              <i className="bi bi-telephone fs-2 me-3 text-secondary"></i>
               <div>
                 <p className="mb-0 fw-bold">Phone</p>
                 <p className="mb-0 text-secondary">+1 234 567 890</p>
               </div>
             </div>
             <div className="d-flex">
-              <i className="bi bi-envelope-fill fs-2 me-3 text-secondary"></i>
+              <i className="bi bi-envelope fs-2 me-3 text-secondary"></i>
               <div>
                 <p className="fw-bold mb-0">Email</p>
                 <p className="mb-0 text-secondary">info@example.com</p>
