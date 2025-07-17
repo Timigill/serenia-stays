@@ -74,7 +74,7 @@ const BlogPage = () => {
       </div>
 </div>
       {/* Blog List */}
-      <div className="container ">
+      <div className="container">
         <div className="row gy-4">
           <div className="col-lg-8">
             {loading ? (
@@ -147,9 +147,262 @@ const BlogPage = () => {
             )}
           </div>
 
+
+
           {/* Right Column (Sidebar or Placeholder) */}
           <div className="col-lg-4">
-            <div className="h-100 w-100" style={{ backgroundColor: "#007bff", minHeight: "300px" }}></div>
+            <aside className="bg-light p-4  mb-2 ">
+                <form>
+  <div className="d-flex  flex-column gap-3 mb-4">
+    <input
+      type="text"
+      name="search"
+      placeholder="Search Keywords"
+      className="form-control rounded-0 px-4 py-3"
+      style={{
+        fontSize: "0.9rem",
+        border: "1px solid #ccc",
+        boxShadow: "none",
+      }}
+    />
+
+    <button
+      type="submit"
+      className="btn border border-primary text-primary fs-6 px-5 py-3 rounded-0 custom-hover"
+    >
+      Search
+    </button>
+  </div>
+</form>
+
+            </aside>
+
+<aside className="bg-light p-4 my-4 ">
+    <h5
+        className="  pb-3 mb-4"
+        style={{fontWeight:"500",
+        borderBottom: "1px solid #ccc",
+        fontSize: "1.1rem",
+        }}
+    >
+        Category
+    </h5>
+
+    <ul className="list-unstyled m-0">
+        {[
+        { label: "Restaurant food", count: 37 },
+        { label: "Travel news", count: 10 },
+        { label: "Modern technology", count: 3 },
+        { label: "Product", count: 11 },
+        { label: "Inspiration", count: 21 },
+        { label: "Health Care", count: 21 },
+        ].map((item, index, arr) => (
+        <li
+            key={item.label}
+            className="d-flex  py-3"
+            style={{
+            borderBottom: index !== arr.length - 1 ? "1px solid #ccc" : "none",
+            fontSize: "0.95rem",
+            }}
+        >
+            <span>{item.label}</span>
+            <span>({item.count})</span>
+        </li>
+        ))}
+    </ul>
+    </aside>
+
+
+<aside className="bg-light p-4 my-4">
+  <h5
+    className=" pb-3 mb-4"
+    style={{
+      fontWeight: "500",
+      borderBottom: "1px solid #ccc",
+      fontSize: "1.1rem",
+    }}
+  >
+    Recent Posts
+  </h5>
+
+  <ul className="list-unstyled m-0">
+    {[
+      {
+        title: "Exploring the beauty of beaches",
+        date: "July 15, 2025",
+        image: "/contactbg.png",
+      },
+      {
+        title: "A guide to modern hotel design",
+        date: "July 10, 2025",
+        image: "/contactbg.png",
+      },
+      {
+        title: "Top travel destinations this summer",
+        date: "July 2, 2025",
+        image: "/contactbg.png",
+      },
+      {
+        title: "Top travel destinations this summer",
+        date: "July 2, 2025",
+        image: "/contactbg.png",
+      },
+      {
+        title: "Top travel destinations this summer",
+        date: "July 2, 2025",
+        image: "/contactbg.png",
+      },
+      {
+        title: "Top travel destinations this summer",
+        date: "July 2, 2025",
+        image: "/contactbg.png",
+      },
+    ].map((post, idx, arr) => (
+      <li
+        key={idx}
+        className="d-flex gap-3 py-3"
+        style={{
+          borderBottom: idx !== arr.length - 1 ? "1px solid #ccc" : "none",
+        }}
+      >
+        {/* Left: Thumbnail */}
+        <img
+          src={post.image}
+          alt="Post Thumbnail"
+          style={{
+            width: "70px",
+            height: "70px",
+            objectFit: "cover",
+            flexShrink: 0,
+          }}
+        />
+
+        {/* Right: Title & Date */}
+        <div className="flex-grow-1">
+          <p
+            className="mb-1 fw-semibold"
+            style={{ fontSize: "0.95rem", lineHeight: "1.2" }}
+          >
+            {post.title.split(" ").slice(0, 3).join(" ")}
+            {post.title.split(" ").length > 3 && "..."}
+          </p>
+          <small className="text-muted">{post.date}</small>
+        </div>
+      </li>
+    ))}
+  </ul>
+</aside>
+
+<aside className="bg-light p-4 my-4">
+  <h5
+    className=" pb-3 mb-4"
+    style={{
+      fontWeight: "500",
+      borderBottom: "1px solid #ccc",
+      fontSize: "1.1rem",
+    }}
+  >
+    Tag Clouds
+  </h5>
+
+  <div className="row gx-2 gy-1">
+  {[
+    "project",
+    "love",
+    "technology",
+    "travel",
+    "restaurant",
+    "life style",
+    "design",
+    "illustration",
+  ].map((tag, idx) => (
+    <div key={idx} className="col-4">
+      <span
+        className="d-inline-block px-2 py-1 border rounded-0 text-center w-100 tag-hover"
+        style={{
+          fontSize: "0.75rem",
+          cursor: "pointer",
+          transition: "all 0.2s ease-in-out",
+        }}
+      >
+        {tag}
+      </span>
+    </div>
+  ))}
+</div>
+
+
+
+</aside>
+
+
+<aside className="bg-light p-4 my-4">
+  <h5
+    className=" pb-3 mb-4"
+    style={{
+      fontWeight: "500",
+      borderBottom: "1px solid #ccc",
+      fontSize: "1.1rem",
+    }}
+  >
+    Instagram Feed
+  </h5>
+
+  <div className="row g-2">
+    {[...Array(6)].map((_, i) => (
+      <div key={i} className="col-4">
+        <img
+          src={`/contactbg.png`} // Replace with real image URLs when ready
+          alt={`insta-${i}`}
+          className="img-fluid w-100"
+          style={{
+            objectFit: "cover",
+            aspectRatio: "1 / 1",
+            
+          }}
+        />
+      </div>
+    ))}
+  </div>
+</aside>
+
+
+<aside className="bg-light p-4 my-4">
+  <h5
+    className=" pb-3 mb-4"
+    style={{
+      fontWeight: "500",
+      borderBottom: "1px solid #ccc",
+      fontSize: "1.1rem",
+    }}
+  >
+    Newsletter
+  </h5>
+
+  <form>
+    <div className="d-flex flex-column gap-3 mb-4">
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter Email"
+        className="form-control rounded-0 px-4 py-3"
+        style={{
+          fontSize: "0.9rem",
+          border: "1px solid #ccc",
+          boxShadow: "none",
+        }}
+      />
+
+      <button
+        type="submit"
+        className="btn border border-primary text-primary fs-6 px-5 py-3 rounded-0 custom-hover"
+      >
+        Subscribe
+      </button>
+    </div>
+  </form>
+</aside>
+
           </div>
         </div>
       </div>
