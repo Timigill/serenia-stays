@@ -3,7 +3,7 @@ import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-transparent py-4 px-5 w-100 position-absolute" style={{zIndex: 100}}>
+    <nav className="navbar navbar-expand-lg z-2 navbar-dark bg-transparent py-4 px-5 w-100 position-absolute" style={{zIndex: 100}}>
       <div className="container-fluid">
         <ul className="navbar-nav  mb-2 mb-lg-0 d-flex align-items-center gap-4">
           <li className="nav-item">

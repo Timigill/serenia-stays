@@ -7,413 +7,266 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [currentPage, setCurrentPage] = useState(1);
+  const [darkMode, setDarkMode] = useState(false);
+
   const postsPerPage = 5;
 
+  // Fetch blogs from API
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         const res = await fetch("/api/blogs");
         const data = await res.json();
         setBlogs(data);
-        setLoading(false);
       } catch (error) {
         console.error("Failed to load blogs", error);
+      } finally {
         setLoading(false);
       }
     };
-
     fetchBlogs();
   }, []);
 
-  const totalPages = Math.ceil(blogs.length / postsPerPage);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = blogs.slice(indexOfFirstPost, indexOfLastPost);
+  // Check theme preference
+  useEffect(() => {
+    const saved = localStorage.getItem("blog-theme");
+    if (saved === "dark") {
+      setDarkMode(true);
+      document.body.classList.add("dark-mode");
+    }
+  }, []);
 
-  const handlePageChange = (number) => setCurrentPage(number);
+  const toggleDarkMode = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    document.body.classList.toggle("dark-mode", newMode);
+    localStorage.setItem("blog-theme", newMode ? "dark" : "light");
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(blogs.length / postsPerPage);
+  const paginatedBlogs = blogs.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
 
   const renderPageNumbers = () => {
-    const pagesToShow = 3;
-    let start = Math.max(1, currentPage - Math.floor(pagesToShow / 2));
-    let end = Math.min(start + pagesToShow - 1, totalPages);
-
-    if (end - start < pagesToShow - 1) {
-      start = Math.max(1, end - pagesToShow + 1);
+    const pages = [];
+    const start = Math.max(1, currentPage - 1);
+    const end = Math.min(start + 2, totalPages);
+    for (let i = start; i <= end; i++) {
+      pages.push(
+        <li key={i} className={`page-item ${i === currentPage ? "active" : ""}`}>
+          <button className="page-link" onClick={() => setCurrentPage(i)}>
+            {i}
+          </button>
+        </li>
+      );
     }
-
-    return Array.from({ length: end - start + 1 }, (_, i) => start + i).map((num) => (
-      <li key={num} className={`page-item ${currentPage === num ? "active" : ""}`}>
-        <button className="page-link" onClick={() => handlePageChange(num)}>
-          {num}
-        </button>
-      </li>
-    ));
+    return pages;
   };
 
   return (
     <section>
-      {/* Hero Section */}
+      {/* Hero */}
       <div style={{minHeight:"100vh"}}>
       <div
-        className="d-flex flex-column justify-content-center align-items-center text-center"
+        className="d-flex justify-content-center align-items-center text-center position-relative"
         style={{
-          minHeight: "80vh",
+          minHeight: "90vh",
           backgroundImage: "url(/bg-blog.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          position: "relative",
         }}
       >
-        <div className="position-absolute top-0 start-0 w-100 h-100" style={{ background: "rgba(44,62,80,0.35)", zIndex: 1 }}></div>
+      <button
+      
+            className="btn btn-outline-light z-3  position-absolute rounded-circle "
+            onClick={toggleDarkMode}
+            aria-label="Toggle dark mode"
+           style={{
+            top:"7.5%",
+            right:"1%"
+           }}
+          >
+            <i className={`bi ${darkMode ? "bi-sun-fill" : "bi-moon-fill"}`}></i>
+          </button>
+        <div className="position-absolute top-0 start-0 w-100 h-100" style={{ background: "rgba(0,0,0,0.4)" }}></div>
         <div className="position-relative z-2 text-white">
-          <h1 className="display-4 display-md-1 mb-3">Blogs</h1>
+          <h1 className="display-4">Blogs</h1>
+          {/* <button
+            className="btn btn-outline-light rounded-circle mt-3"
+            onClick={toggleDarkMode}
+            aria-label="Toggle dark mode"
+          >
+            <i className={`bi ${darkMode ? "bi-sun-fill" : "bi-moon-fill"}`}></i>
+          </button> */}
         </div>
       </div>
 </div>
-      {/* Blog List */}
-      <div className="container">
-        <div className="row gy-4">
+      {/* Main Content */}
+      <div className="container mb-5">
+        <div className="row">
+          {/* Left Side (Blog posts) */}
           <div className="col-lg-8">
             {loading ? (
-              <p>Loading blogs...</p>
-            ) : currentPosts.length === 0 ? (
-              <p>No blog posts available.</p>
+              <p>Loading...</p>
             ) : (
-              currentPosts.map((blog) => (
-                <div key={blog._id} className="card mb-4 border-0 shadow-lg" style={{ borderRadius: "0" }}>
+              paginatedBlogs.map((blog) => (
+                <div key={blog._id} className="card mb-4 border-0 shadow-sm rounded-0">
                   <div className="position-relative">
                     <img
                       src={blog.image}
-                      alt={blog.title}
                       className="card-img-top"
-                      style={{
-                        height: "400px",
-                        objectFit: "cover",
-                        borderRadius: "0",
-                        width: "100%",
-                      }}
+                      style={{ height: "400px", objectFit: "cover" }}
+                      alt="Blog"
                     />
-                    <div
-                      className="position-absolute rounded-1 bg-primary text-white text-center px-3 py-3"
-                      style={{
-                        width: "90px",
-                        left: "30px",
-                        bottom: "-10px",
-                      }}
-                    >
-                      <h3 className="mb-0">{blog.date}</h3>
-                      <p className="mb-0">{blog.month}</p>
+                    <div className="position-absolute bg-primary text-white px-3 py-2" style={{ left: "20px", bottom: "-15px" }}>
+                      <h6 className="mb-0">{blog.date}</h6>
+                      <small>{blog.month}</small>
                     </div>
                   </div>
-                  <div className="card-body my-4" style={{ paddingLeft: "30px" }}>
-                    <h5 className="card-title fs-4">{blog.title}</h5>
-                    <p className="card-text text-muted">{blog.excerpt}</p>
+                  <div className="card-body mt-4" style={{ paddingLeft: "25px" }}>
+                    <h5>{blog.title}</h5>
+                    <p className="text  ">{blog.excerpt}</p>
                   </div>
-                  <div className="card-footer bg-white border-0 d-flex small text-secondary ps-3">
-                    <span>
-                      <i className="bi bi-folder me-1"></i>
-                      {blog.categories.join(", ")}
-                    </span>
+                  <div className="card-footer  d-flex text small ps-3">
+                    <span><i className="bi bi-folder me-1"></i>{blog.categories.join(", ")}</span>
                     <span className="px-2">|</span>
-                    <span>
-                      <i className="bi bi-chat-dots me-1"></i>
-                      {blog.comments} Comments
-                    </span>
+                    <span><i className="bi bi-chat-dots me-1"></i>{blog.comments} Comments</span>
                   </div>
                 </div>
               ))
             )}
 
             {/* Pagination */}
-            {!loading && totalPages > 1 && (
+            {totalPages > 1 && (
               <nav>
                 <ul className="pagination justify-content-center">
-                  <li className={`page-item ${currentPage === 1 && "disabled"}`}>
-                    <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
-                      &laquo;
-                    </button>
+                  <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                    <button className="page-link" onClick={() => setCurrentPage(currentPage - 1)}>&laquo;</button>
                   </li>
                   {renderPageNumbers()}
-                  <li className={`page-item ${currentPage === totalPages && "disabled"}`}>
-                    <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
-                      &raquo;
-                    </button>
+                  <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                    <button className="page-link" onClick={() => setCurrentPage(currentPage + 1)}>&raquo;</button>
                   </li>
                 </ul>
               </nav>
             )}
           </div>
 
-
-
-          {/* Right Column (Sidebar or Placeholder) */}
+          {/* Right Side (Sidebar) */}
           <div className="col-lg-4">
-            <aside className="bg-light p-4  mb-2 ">
-                <form>
-  <div className="d-flex  flex-column gap-3 mb-4">
-    <input
-      type="text"
-      name="search"
-      placeholder="Search Keywords"
-      className="form-control rounded-0 px-4 py-3"
-      style={{
-        fontSize: "0.9rem",
-        border: "1px solid #ccc",
-        boxShadow: "none",
-      }}
-    />
-
-    <button
-      type="submit"
-      className="btn border border-primary text-primary fs-6 px-5 py-3 rounded-0 custom-hover"
-    >
-      Search
-    </button>
-  </div>
-</form>
-
+            {/* Search */}
+            <aside className="bg-light p-4 mb-4">
+              <form>
+                <div className="d-flex flex-column gap-3">
+                  <input
+                    type="text"
+                    placeholder="Search Keywords"
+                    className="form-control rounded-0 px-4 py-3 "
+                  />
+                  <button className="btn btn-primary px-5 py-3 rounded-0">Search</button>
+                </div>
+              </form>
             </aside>
 
-<aside className="bg-light p-4 my-4 ">
-    <h5
-        className="  pb-3 mb-4"
-        style={{fontWeight:"500",
-        borderBottom: "1px solid #ccc",
-        fontSize: "1.1rem",
-        }}
-    >
-        Category
-    </h5>
+            {/* Category */}
+            <aside className="bg-light p-4 mb-4">
+              <h5 className="text-uppercase border-bottom pb-3 mb-4" style={{ fontWeight: 500 }}>Category</h5>
+              <ul className="list-unstyled m-0">
+                {[
+                  { label: "Restaurant food", count: 37 },
+                  { label: "Travel news", count: 10 },
+                  { label: "Modern technology", count: 3 },
+                  { label: "Product", count: 11 },
+                  { label: "Inspiration", count: 21 },
+                  { label: "Health Care", count: 21 },
+                ].map((item, index, arr) => (
+                  <li
+                    key={item.label}
+                    className="d-flex  py-3"
+                    style={{
+                      borderBottom: index !== arr.length - 1 ? "1px solid #ccc" : "none",
+                    }}
+                  >
+                    <span className="px-2">{item.label}</span>
+                    <span>({item.count})</span>
+                  </li>
+                ))}
+              </ul>
+            </aside>
 
-    <ul className="list-unstyled m-0">
-        {[
-        { label: "Restaurant food", count: 37 },
-        { label: "Travel news", count: 10 },
-        { label: "Modern technology", count: 3 },
-        { label: "Product", count: 11 },
-        { label: "Inspiration", count: 21 },
-        { label: "Health Care", count: 21 },
-        ].map((item, index, arr) => (
-        <li
-            key={item.label}
-            className="d-flex  py-3"
-            style={{
-            borderBottom: index !== arr.length - 1 ? "1px solid #ccc" : "none",
-            fontSize: "0.95rem",
-            }}
-        >
-            <span>{item.label}</span>
-            <span>({item.count})</span>
-        </li>
-        ))}
-    </ul>
-    </aside>
+            {/* Recent Posts */}
+            <aside className="bg-light p-4 mb-4">
+              <h5 className="text-uppercase border-bottom pb-3 mb-4" style={{ fontWeight: 500 }}>Recent Posts</h5>
+              {[1, 2, 3].map((_, idx) => (
+                <div key={idx} className="d-flex mb-3">
+                  <img
+                    src="/contactbg.png"
+                    width="80"
+                    height="80"
+                    className="object-fit-cover me-3"
+                    alt="recent"
+                  />
+                  <div>
+                    <h6 className="mb-1" style={{ fontSize: "0.95rem" }}>
+                      A dummy blog heading for post {idx + 1}
+                    </h6>
+                    <small className="text">May 12, 2024</small>
+                  </div>
+                </div>
+              ))}
+            </aside>
 
+            {/* Tag Cloud */}
+            <aside className="bg-light p-4 mb-4">
+              <h5 className="text-uppercase border-bottom pb-3 mb-4" style={{ fontWeight: 500 }}>Tag Clouds</h5>
+              <div className="d-flex flex-wrap gap-2">
+                {["project", "love", "technology", "travel", "restaurant", "lifestyle", "design", "illustration"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="border px-3 py-2 tag-hover"
+                    style={{ fontSize: "0.85rem", cursor: "pointer" }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </aside>
 
-<aside className="bg-light p-4 my-4">
-  <h5
-    className=" pb-3 mb-4"
-    style={{
-      fontWeight: "500",
-      borderBottom: "1px solid #ccc",
-      fontSize: "1.1rem",
-    }}
-  >
-    Recent Posts
-  </h5>
+            {/* Instagram Feed */}
+            <aside className="bg-light p-4 mb-4">
+              <h5 className="text-uppercase border-bottom pb-3 mb-4" style={{ fontWeight: 500 }}>Instagram Feed</h5>
+              <div className="row g-2">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="col-4">
+                    <img
+                      src="/contactbg.png"
+                      alt={`Insta ${i}`}
+                      className="img-fluid"
+                      style={{ height: "80px", objectFit: "cover" }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </aside>
 
-  <ul className="list-unstyled m-0">
-    {[
-      {
-        title: "Exploring the beauty of beaches",
-        date: "July 15, 2025",
-        image: "/contactbg.png",
-      },
-      {
-        title: "A guide to modern hotel design",
-        date: "July 10, 2025",
-        image: "/contactbg.png",
-      },
-      {
-        title: "Top travel destinations this summer",
-        date: "July 2, 2025",
-        image: "/contactbg.png",
-      },
-      {
-        title: "Top travel destinations this summer",
-        date: "July 2, 2025",
-        image: "/contactbg.png",
-      },
-      {
-        title: "Top travel destinations this summer",
-        date: "July 2, 2025",
-        image: "/contactbg.png",
-      },
-      {
-        title: "Top travel destinations this summer",
-        date: "July 2, 2025",
-        image: "/contactbg.png",
-      },
-    ].map((post, idx, arr) => (
-      <li
-        key={idx}
-        className="d-flex gap-3 py-3"
-        style={{
-          borderBottom: idx !== arr.length - 1 ? "1px solid #ccc" : "none",
-        }}
-      >
-        {/* Left: Thumbnail */}
-        <img
-          src={post.image}
-          alt="Post Thumbnail"
-          style={{
-            width: "70px",
-            height: "70px",
-            objectFit: "cover",
-            flexShrink: 0,
-          }}
-        />
-
-        {/* Right: Title & Date */}
-        <div className="flex-grow-1">
-          <p
-            className="mb-1 fw-semibold"
-            style={{ fontSize: "0.95rem", lineHeight: "1.2" }}
-          >
-            {post.title.split(" ").slice(0, 3).join(" ")}
-            {post.title.split(" ").length > 3 && "..."}
-          </p>
-          <small className="text-muted">{post.date}</small>
-        </div>
-      </li>
-    ))}
-  </ul>
-</aside>
-
-<aside className="bg-light p-4 my-4">
-  <h5
-    className=" pb-3 mb-4"
-    style={{
-      fontWeight: "500",
-      borderBottom: "1px solid #ccc",
-      fontSize: "1.1rem",
-    }}
-  >
-    Tag Clouds
-  </h5>
-
-  <div className="row gx-2 gy-1">
-  {[
-    "project",
-    "love",
-    "technology",
-    "travel",
-    "restaurant",
-    "life style",
-    "design",
-    "illustration",
-  ].map((tag, idx) => (
-    <div key={idx} className="col-4">
-      <span
-        className="d-inline-block px-2 py-1 border rounded-0 text-center w-100 tag-hover"
-        style={{
-          fontSize: "0.75rem",
-          cursor: "pointer",
-          transition: "all 0.2s ease-in-out",
-        }}
-      >
-        {tag}
-      </span>
-    </div>
-  ))}
-</div>
-
-
-
-</aside>
-
-
-<aside className="bg-light p-4 my-4">
-  <h5
-    className=" pb-3 mb-4"
-    style={{
-      fontWeight: "500",
-      borderBottom: "1px solid #ccc",
-      fontSize: "1.1rem",
-    }}
-  >
-    Instagram Feed
-  </h5>
-
-  <div className="row g-2">
-    {[...Array(6)].map((_, i) => (
-      <div key={i} className="col-4">
-        <img
-          src={`/contactbg.png`} // Replace with real image URLs when ready
-          alt={`insta-${i}`}
-          className="img-fluid w-100"
-          style={{
-            objectFit: "cover",
-            aspectRatio: "1 / 1",
-            
-          }}
-        />
-      </div>
-    ))}
-  </div>
-</aside>
-
-
-<aside className="bg-light p-4 my-4">
-  <h5
-    className=" pb-3 mb-4"
-    style={{
-      fontWeight: "500",
-      borderBottom: "1px solid #ccc",
-      fontSize: "1.1rem",
-    }}
-  >
-    Newsletter
-  </h5>
-
-  <form>
-    <div className="d-flex flex-column gap-3 mb-4">
-      <input
-        type="email"
-        name="email"
-        placeholder="Enter Email"
-        className="form-control rounded-0 px-4 py-3"
-        style={{
-          fontSize: "0.9rem",
-          border: "1px solid #ccc",
-          boxShadow: "none",
-        }}
-      />
-
-      <button
-        type="submit"
-        className="btn border border-primary text-primary fs-6 px-5 py-3 rounded-0 custom-hover"
-      >
-        Subscribe
-      </button>
-    </div>
-  </form>
-</aside>
-
+            {/* Newsletter */}
+            <aside className="bg-light p-4 mb-2">
+              <h5 className="text-uppercase border-bottom pb-3 mb-4" style={{ fontWeight: 500 }}>Newsletter</h5>
+              <form>
+                <div className="d-flex flex-column gap-3">
+                  <input
+                    type="email"
+                    placeholder="Enter Email"
+                    className="form-control px-4 py-3"
+                  />
+                  <button className="btn btn-primary px-5 py-3">Subscribe</button>
+                </div>
+              </form>
+            </aside>
           </div>
         </div>
       </div>
-
-  
-      <style jsx global>{`
-        .page-link:focus {
-          outline: none !important;
-          box-shadow: none !important;
-        }
-      `}</style>
     </section>
   );
 };

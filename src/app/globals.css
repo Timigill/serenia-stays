@@ -52,3 +52,56 @@ a {
 .carousel-item {
   transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
+
+
+
+/* ! handling toggle style in blog page for dark and light mode */
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212 !important;
+  color: #f1f1f1 !important;
+}
+
+body.dark-mode .bg-light {
+  background-color: #1e1e1e !important;
+}
+
+body.dark-mode .text-dark {
+  color: #f1f1f1 !important;
+}
+
+body.dark-mode .card,
+body.dark-mode .form-control,
+body.dark-mode .pagination .page-link {
+  background-color: #1e1e1e !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+
+body.dark-mode .page-link.active {
+  background-color: #009DFF;
+  border-color: #009DFF;
+}
+
+body.dark-mode .btn.border-primary.text-primary {
+  border-color: #00aaff !important;
+  color: #00aaff !important;
+}
+
+body.dark-mode .btn.border-primary.text-primary:hover {
+  background-color: #00aaff !important;
+  color: white !important;
+}
+/* For dark mode input inside sidebar */
+body.dark-mode input::placeholder {
+  color: white !important;
+  opacity: 1; /* optional: ensures full opacity */
+}
+
+
+
+/* Remove blue focus ring from pagination */
+.page-link:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
