@@ -8,7 +8,7 @@ const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [darkMode, setDarkMode] = useState(false);
+ 
 
   const postsPerPage = 5;
 
@@ -28,21 +28,7 @@ const BlogPage = () => {
     fetchBlogs();
   }, []);
 
-  // Check theme preference
-  useEffect(() => {
-    const saved = localStorage.getItem("blog-theme");
-    if (saved === "dark") {
-      setDarkMode(true);
-      document.body.classList.add("dark-mode");
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    document.body.classList.toggle("dark-mode", newMode);
-    localStorage.setItem("blog-theme", newMode ? "dark" : "light");
-  };
+ 
 
   // Pagination logic
   const totalPages = Math.ceil(blogs.length / postsPerPage);
@@ -77,18 +63,7 @@ const BlogPage = () => {
           backgroundPosition: "center",
         }}
       >
-      <button
-      
-            className="btn btn-outline-light z-3  position-absolute rounded-circle "
-            onClick={toggleDarkMode}
-            aria-label="Toggle dark mode"
-           style={{
-            top:"7.5%",
-            right:"1%"
-           }}
-          >
-            <i className={`bi ${darkMode ? "bi-sun-fill" : "bi-moon-fill"}`}></i>
-          </button>
+    
         <div className="position-absolute top-0 start-0 w-100 h-100" style={{ background: "rgba(0,0,0,0.4)" }}></div>
         <div className="position-relative z-2 text-white">
           <h1 className="display-4">Blogs</h1>
