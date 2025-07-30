@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import styles from './navbar.module.css';
+import BookRoomModal from './BookRoomModal';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-transparent py-4 px-5 w-100 position-absolute" style={{zIndex: 100}}>
@@ -51,8 +53,7 @@ export default function Navbar() {
 
         {/* === Desktop Layout === */}
         <div className="d-none d-lg-flex align-items-center justify-content-between w-100">
-          
-          {/* LEFT: Nav Links (HORIZONTAL row on left) */}
+          {/* LEFT: Nav Links */}
           <ul className={`d-flex align-items-center gap-4 mb-0 ${styles.navLinks}`}>
             <li><Link className="nav-link text-white" href="/">Home</Link></li>
             <li><Link className="nav-link text-white" href="/rooms">Rooms</Link></li>
@@ -67,35 +68,40 @@ export default function Navbar() {
             <img src="/logo.png" alt="Logo" style={{ height: 60 }} />
           </div>
 
-          {/* RIGHT: Social Icons + Book A Room */}
+          {/* RIGHT: Socials + Button */}
           <div className={`d-flex align-items-center gap-3 ${styles.navRight}`}>
             <a href="#" className="text-white"><FaFacebookF /></a>
             <a href="#" className="text-white"><FaTwitter /></a>
             <a href="#" className="text-white"><FaInstagram /></a>
-            <Link href="/book">
-              <button className="btn bg-primary px-4 py-2 fw-bold text-white">Book A Room</button>
-            </Link>
+            <button
+              className="btn bg-primary px-4 py-2 fw-bold text-white"
+              onClick={() => setModalShow(true)}
+            >
+              Book A Room
+            </button>
           </div>
         </div>
       </div>
 
       {/* === Mobile Menu === */}
       {menuOpen && (
-  <div
-    className={`d-lg-none px-4 py-3 ${styles.mobileMenu}`}
-    style={{ backgroundColor: '#ffffff' }} 
-  >
-    <ul className="list-unstyled mb-0">
-      <li><Link href="/">Home</Link></li>
-      <li><Link href="/rooms">Rooms</Link></li>
-      <li><Link href="/about">About</Link></li>
-      <li><Link href="/blog">Blog</Link></li>
-      <li><Link href="/pages">Pages</Link></li>
-      <li><Link href="/contact">Contact</Link></li>
-    </ul>
-  </div>
-)}
+        <div
+          className={`d-lg-none px-4 py-3 ${styles.mobileMenu}`}
+          style={{ backgroundColor: '#ffffff' }}
+        >
+          <ul className="list-unstyled mb-0">
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/rooms">Rooms</Link></li>
+            <li><Link href="/about">About</Link></li>
+            <li><Link href="/blog">Blog</Link></li>
+            <li><Link href="/pages">Pages</Link></li>
+            <li><Link href="/contact">Contact</Link></li>
+          </ul>
+        </div>
+      )}
 
+      {/* === Modal Component === */}
+      <BookRoomModal show={modalShow} handleClose={() => setModalShow(false)} />
     </nav>
   );
 }
