@@ -28,12 +28,16 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: var(--font-raleway), sans-serif;
 }
 
 a {
   color: inherit;
   text-decoration: none;
 }
+
+
+
 
 @media (prefers-color-scheme: dark) {
   html {
