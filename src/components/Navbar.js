@@ -9,15 +9,44 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className={`position-absolute top-0 start-0 w-100 px-4 px-md-5 py-3 ${styles.navbar}`} style={{ zIndex: 100 }}>
-      <div className="container-fluid d-flex align-items-center justify-content-between flex-wrap">
-
-        {/* === Mobile: Left Logo, Right Hamburger === */}
-        <div className="d-lg-none d-flex justify-content-between align-items-center w-100">
-          <img src="/logo.png" alt="Logo" style={{ height: 50 }} />
-          <div className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
-            <GiHamburgerMenu size={26} color="#fff" />
-          </div>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-transparent py-4 px-5 w-100 position-absolute" style={{zIndex: 100}}>
+      <div className="container-fluid">
+        <ul className="navbar-nav  mb-2 mb-lg-0 d-flex align-items-center gap-4">
+          <li className="nav-item">
+            <Link className="nav-link text-white" href="/">Home</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white" href="/rooms">Rooms</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white" href="/about">About</Link>
+          </li>
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle text-white" href="#" id="blogDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Blog
+            </a>
+            <ul className="dropdown-menu" aria-labelledby="blogDropdown">
+              <li><Link className="dropdown-item text-white" href="/blog">Blog</Link></li>
+              <li><Link className="dropdown-item text-white" href="/blog/single">Single Blog</Link></li>
+            </ul>
+          </li>
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Pages
+            </a>
+            <ul className="dropdown-menu" aria-labelledby="pagesDropdown">
+              <li><Link className="dropdown-item text-white" href="/elements">Elements</Link></li>
+            </ul>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white" href="/contact">Contact</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white" href="/faq">FAQs</Link>
+          </li>
+        </ul>
+        <div className="mx-auto text-center">
+          <img src="/logo.png" alt="Serenia Stays Logo" style={{height: 70, marginBottom: 0, opacity:2}} />
         </div>
 
         {/* === Desktop Layout === */}
