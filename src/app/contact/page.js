@@ -69,7 +69,7 @@ const Contact = () => {
       <div
         className="d-flex flex-column justify-content-center align-items-center text-center"
         style={{
-          minHeight: "80vh",
+          minHeight: "90vh",
           backgroundImage: "url(/contactbg.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
