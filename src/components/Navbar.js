@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import styles from './navbar.module.css';
+import  './navbar.module.css';
 import BookRoomModal from './BookRoomModal';
 
 export default function Navbar() {
